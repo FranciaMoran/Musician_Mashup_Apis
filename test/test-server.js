@@ -8,7 +8,7 @@
 
  describe('API', function() {
 
-   it('should 200 on GET requests', function() {
+   it('should 200 on GET requests testing', function() {
      return chai.request(app)
        .get('/api/fooooo')
        .then(function(res) {
