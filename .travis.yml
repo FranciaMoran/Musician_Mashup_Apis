@@ -1,0 +1,11 @@
+language: node_js
+ node_js: node
+ services:
+     - mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: db09bbe3-c0c6-41cb-8047-f1e88f42e92c
+  app: frozen-peak-67124
+  on:
+    repo: FranciaMoran/Musician_Mashup_Apis
