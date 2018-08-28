@@ -1,17 +1,4 @@
-/* const express = require('express');
- const app = express();
-
- const PORT = process.env.PORT || 8080;
-
- app.get('/api/*', (req, res) => {
-   res.json({ok: true});
- });
-
- app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
-
- module.exports = {app};*/
-
- 'use strict';
+'use strict';
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -49,7 +36,6 @@ app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-// A protected endpoint which needs a valid JWT to access it
 app.get('/api/protected', jwtAuth, (req, res) => {
   return res.json({
     data: 'rosebud'
