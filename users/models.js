@@ -1,7 +1,6 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-
 mongoose.Promise = global.Promise;
 
 const UserSchema = mongoose.Schema({
@@ -37,3 +36,4 @@ UserSchema.statics.hashPassword = function(password) {
 const User = mongoose.model('User', UserSchema);
 
 module.exports = {User};
+

@@ -4,7 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
-
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
@@ -41,9 +42,84 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
  
 app.get('/api/protected', jwtAuth, (req, res) => {
   return res.json({
-    data: 'rosebud'
+    data: 'testing'
   });
 });
+
+
+
+
+
+////////////////////////////////////////////
+/*
+
+app.put('/dashboard/:id', jsonParser, (req, res) => {
+
+  const updated = {};
+  const updateableFields =  ['name', 'location', 'genre', 'cell', 'email'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  eachProfile
+    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+
+    .then(updatedLog => { 
+      eachProfile
+        .find()
+        .then(logs => {
+          res.json(logs.map(log => log.serialize()));
+        })
+    })
+    .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+});
+
+
+*/
+
+/////////////////////////////
+/*
+
+
+app.post('/dashboard', jsonParser, (req, res) => {
+  const requiredFields = ['name'];
+  for (let i = 0; i < requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status().send(message);
+    }
+  }
+
+ eachProfile
+    .create({
+      name: req.body.name,
+      location: req.body.location,
+      genre: req.body.genre,
+      cell: req.body.cell, 
+      email: req.body.email
+    })
+    .then(eachProfile => res.status(201).json(eachProfile.serialize()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'Something went wrong' });
+    });
+
+});
+
+
+*/
+///////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
