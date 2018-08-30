@@ -14,14 +14,26 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   firstName: {type: String, default: ''},
-  lastName: {type: String, default: ''}
+  lastName: {type: String, default: ''},
+  name: { type: String },
+  location: { type: String },
+  insrument: { type: String },
+  genre: { type: String },
+  cell: { type: Number }, 
+  email: { type: String }
 });
 
 UserSchema.methods.serialize = function() {
   return {
     username: this.username || '',
     firstName: this.firstName || '',
-    lastName: this.lastName || ''
+    lastName: this.lastName || '',
+    name: this.name || '',
+    location: this.location || '',
+    instrument: this.instrument || '',
+    genre: this.genre || '',
+    cell: this.cell || '', 
+    email: this.email || ''
   };
 };
 
