@@ -21,7 +21,7 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  const stringFields = ['username', 'password', 'firstName', 'lastName', 'name', 'location', 'instrument', 'genre', 'email'];
+  const stringFields = ['username', 'password', 'firstName', 'lastName'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   );
@@ -124,6 +124,26 @@ router.get('/', (req, res) => {
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
+
+
+router.put('/:id', jsonParser, (req, res) => {
+  const updated = {};
+  const updateableFields =  ['name', 'location', 'intrument', 'genre', 'cell', 'email'];;
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  User
+    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+    .then(user => { 
+      res.json(user)
+    })
+    .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+});
+
+
 
 module.exports = {router};
 

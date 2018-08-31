@@ -33,7 +33,8 @@ UserSchema.methods.serialize = function() {
     instrument: this.instrument || '',
     genre: this.genre || '',
     cell: this.cell || '', 
-    email: this.email || ''
+    email: this.email || '',
+    id: this._id
   };
 };
 

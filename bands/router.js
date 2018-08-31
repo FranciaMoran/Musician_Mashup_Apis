@@ -2,15 +2,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {Profiles} = require('./models');
+const {Bands} = require('./models');
 const passport = require('passport');
 const router = express.Router();
 
 const jsonParser = bodyParser.json();
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-router.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['name'];
+
+router.post('/', jwtAuth, jsonParser, (req, res) => {
+  const requiredFields = ['bandName'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -20,26 +21,20 @@ router.post('/', jsonParser, (req, res) => {
     }
   }
 
-   Profiles
+   Bands
     .create({
-      name: req.body.name,
-      location: req.body.location,
-      instrument: req.body.instrument,
-      genre: req.body.genre,
-      cell: req.body.cell,
-      email: req.body.email
+      bandName: req.body.name
     })
-    .then(Profiles => res.status(201).json(Profiles.serialize()))
+    .then(Bands => res.status(201).json(Bands.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
 });
 
-
 router.get('/', jwtAuth, (req, res) => {
   return res.json({
-    Profiles
+    Bands
   });
 });
 
