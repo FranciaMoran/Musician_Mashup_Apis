@@ -23,7 +23,7 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
 
    Bands
     .create({
-      bandName: req.body.name
+      bandName: req.body.bandName
     })
     .then(Bands => res.status(201).json(Bands.serialize()))
     .catch(err => {

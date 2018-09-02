@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
-const { router: profilesRouter } = require('./profiles');
+//const { router: profilesRouter } = require('./profiles');
 const { router: bandsRouter } = require('./bands');
 
 
@@ -36,7 +36,7 @@ passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
-app.use('/api/profiles/', profilesRouter);
+//app.use('/api/profiles/', profilesRouter);
 app.use('/api/bands/', bandsRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
