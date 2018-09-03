@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -46,3 +46,4 @@ router.get('/', jwtAuth, (req, res) => {
 
 module.exports = {router};
 
+*/

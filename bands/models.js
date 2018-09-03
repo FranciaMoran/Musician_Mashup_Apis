@@ -1,13 +1,18 @@
 'use strict';;
 const mongoose = require('mongoose');
+const {UserSchema} = require('../users/models');
 
 const BandSchema = mongoose.Schema({
-  bandName: { type: String }
+  bandName: { type: String },
+  members: {
+   type: [UserSchema]
+  }
 });
 
 BandSchema.methods.serialize = function() {
   return {
-    bandName: this.bandName || ''
+    bandName: this.bandName || '',
+    members: this.members || ''
   };
 };
 

@@ -1,4 +1,4 @@
-'use strict';;
+/*'use strict';;
 const mongoose = require('mongoose');
 
 const ProfileSchema = mongoose.Schema({
@@ -24,4 +24,4 @@ ProfileSchema.methods.serialize = function() {
 const Profiles = mongoose.model('Profiles', ProfileSchema);
 
 module.exports = {Profiles};
-
+*/

@@ -17,7 +17,7 @@ const UserSchema = mongoose.Schema({
   lastName: {type: String, default: ''},
   name: { type: String },
   location: { type: String },
-  insrument: { type: String },
+  instrument: { type: String },
   genre: { type: String },
   cell: { type: Number }, 
   email: { type: String }
@@ -48,5 +48,5 @@ UserSchema.statics.hashPassword = function(password) {
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports = {User};
+module.exports = {User, UserSchema};
 

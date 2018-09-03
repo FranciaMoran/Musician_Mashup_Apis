@@ -1,11 +1,10 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const {Bands} = require('./models');
 const passport = require('passport');
 const router = express.Router();
-
+const {User} = require('../users/models');
 const jsonParser = bodyParser.json();
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
@@ -20,24 +19,50 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
       return res.status().send(message);
     }
   }
-
-   Bands
-    .create({
-      bandName: req.body.bandName
-    })
-    .then(Bands => res.status(201).json(Bands.serialize()))
+   User.findById(req.body.userId)
+  .then(user => { 
+    Bands
+      .create({
+        bandName: req.body.bandName,
+        members: [user] 
+      })
+    .then(bands => res.status(201).json(bands.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
-});
-/*
-router.get('/', jwtAuth, (req, res) => {
-  return res.json({
-    Bands
   });
 });
 
-*/
+
+
+
+router.get('/', jwtAuth, jsonParser, (req, res) => {
+  return Bands.find()
+    .then(Bands => res.json(Bands.map(Bands => Bands.serialize())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
+
+router.put('/:id', jsonParser, (req, res) => {
+  const updated = {};
+  const updateableFields =  ['bandName', 'members'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  Bands
+    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+    .then(Bands => { 
+      res.json(Bands)
+    })
+    .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+});
+
+
+
+
 module.exports = {router};
 
