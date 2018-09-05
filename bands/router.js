@@ -34,15 +34,27 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
   });
 });
 
-
-
-
+/*
 router.get('/', jwtAuth, jsonParser, (req, res) => {
   return Bands.find()
-    .then(Bands => res.json(Bands.map(Bands => Bands.serialize())))
+    .then(bands => res.json(bands.map(bands => bands.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
-});
+    console.log(res)
+}); */
+/*
+router.get('/', jwtAuth, (req, res) => {
+return res.json({
+    data: 'test'
+  });
+});   
+*/
 
+router.get('/', jwtAuth, jsonParser, (req, res) => {
+   return Bands.find()
+    .then(band => res.json(band.map(bands => bands.serialize())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+    console.log(res);
+  });
 
 router.put('/:id', jsonParser, (req, res) => {
   const updated = {};
@@ -60,8 +72,6 @@ router.put('/:id', jsonParser, (req, res) => {
     })
     .catch(err => res.status(500).json({ message: 'Something went wrong' }));
 });
-
-
 
 
 module.exports = {router};

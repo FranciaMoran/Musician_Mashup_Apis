@@ -5,7 +5,7 @@ const {UserSchema} = require('../users/models');
 const BandSchema = mongoose.Schema({
   bandName: { type: String },
   members: {
-   type: [UserSchema]
+  	type: [UserSchema]
   }
 });
 
