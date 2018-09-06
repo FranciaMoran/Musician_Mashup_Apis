@@ -19,19 +19,19 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
       return res.status().send(message);
     }
   }
-  User.findById(req.body.userId)
-  .then(user => { 
+  //User.findById(req.body.userId)
+  //.then(user => { 
     Bands
       .create({
         bandName: req.body.bandName,
-        members: [user] 
+        memberOne: req.body.memberOne
       })
     .then(bands => res.status(201).json(bands.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
-  });
+ // });
 });
 
 
@@ -48,7 +48,7 @@ router.get('/', jwtAuth, jsonParser, (req, res) => {
 
 router.put('/:id', jwtAuth, jsonParser, (req, res) => {
   const updated = {};
-  const updateableFields =  ['bandName', 'members'];
+  const updateableFields =  ['bandName'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
