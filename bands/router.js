@@ -19,7 +19,7 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
       return res.status().send(message);
     }
   }
-   User.findById(req.body.userId)
+  User.findById(req.body.userId)
   .then(user => { 
     Bands
       .create({
@@ -34,29 +34,19 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
   });
 });
 
-/*
-router.get('/', jwtAuth, jsonParser, (req, res) => {
-  return Bands.find()
-    .then(bands => res.json(bands.map(bands => bands.serialize())))
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-    console.log(res)
-}); */
-/*
-router.get('/', jwtAuth, (req, res) => {
-return res.json({
-    data: 'test'
-  });
-});   
-*/
+
+
 
 router.get('/', jwtAuth, jsonParser, (req, res) => {
-   return Bands.find()
-    .then(band => res.json(band.map(bands => bands.serialize())))
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-    console.log(res);
-  });
+  Bands.find()
+  .then(bands => res.json(bands.map(bands => bands.serialize())))
+  .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
 
-router.put('/:id', jsonParser, (req, res) => {
+
+
+
+router.put('/:id', jwtAuth, jsonParser, (req, res) => {
   const updated = {};
   const updateableFields =  ['bandName', 'members'];
   updateableFields.forEach(field => {
@@ -66,11 +56,21 @@ router.put('/:id', jsonParser, (req, res) => {
   });
 
   Bands
-    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
-    .then(Bands => { 
-      res.json(Bands)
-    })
-    .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+  .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+  .then(Bands => { 
+    res.json(Bands)
+  })
+  .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+});
+
+
+
+
+
+router.delete('/:id', jwtAuth, jsonParser, (req, res) => {
+  Bands.findById(req.params.id)
+  .then(bands => bands.remove().then(() => res.json({success: true})))
+  .catch(err => res.status(404).json({success: false}))
 });
 
 
