@@ -1,16 +1,16 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
-const {Bands} = require('./models');
+const {Bands} = require('./bands');
 const passport = require('passport');
 const router = express.Router();
-const {User} = require('../users/models');
+//const {User} = require('../users/models');
 const jsonParser = bodyParser.json();
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 
 router.post('/', jwtAuth, jsonParser, (req, res) => {
-  const requiredFields = ['bandName'];
+ /* const requiredFields = ['bandName'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -18,20 +18,21 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
       console.error(message);
       return res.status().send(message);
     }
-  }
-  User.findById(req.body.userId)
-  .then(user => { 
+  }*/
+  //User.findById(req.body.userId)
+  //.then(user => { 
+    //console.log(Bands);
     Bands
       .create({
-        bandName: req.body.bandName,
-        memberOne: user.name
+        bandName: 'test',
+        memberOne: 'John Lennon'
       })
     .then(bands => res.status(201).json(bands.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
     });
-  });
+ // });
 });
 
 

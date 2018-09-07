@@ -6,10 +6,10 @@ const morgan = require('morgan');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const { router: usersRouter } = require('./users');
+const { router: usersRouter } = require('./users/router');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 //const { router: profilesRouter } = require('./profiles');
-const { router: bandsRouter } = require('./bands');
+const { router: bandsRouter } = require('./bands/router');
 
 
 
