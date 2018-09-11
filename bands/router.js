@@ -21,7 +21,6 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
   }
   User.findById(req.body.userId)
   .then(user => { 
-    //console.log(Bands);
     Bands
       .create({
         bandName: req.body.bandName,
@@ -37,14 +36,20 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
 
 
 
-
 router.get('/', jwtAuth, jsonParser, (req, res) => {
-  Bands.find()
-  .then(bands => res.json(bands.map(bands => bands.serialize())))
-  .catch(err => res.status(500).json({message: 'Internal server error'}));
+  Bands
+    .find()
+    .then(bands => {
+      res.json(bands.map(band => band.serialize()));
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'something went terribly wrong' });
+    });
 });
 
 
+ 
 
 
 router.put('/:id', jwtAuth, jsonParser, (req, res) => {
