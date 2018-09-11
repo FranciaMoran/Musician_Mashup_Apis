@@ -26,11 +26,6 @@ app.use(
     })
 );
 
-
- /*app.get('/api/*', (req, res) => {
-   res.json({ok: true});
- });*/
-
  
 
 app.use(function (req, res, next) {
