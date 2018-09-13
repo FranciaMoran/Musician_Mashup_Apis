@@ -40,7 +40,6 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
 router.get('/', jwtAuth, jsonParser, (req, res) => {
   Bands
     .find({ userId: req.user.id })
-    //.find()
     .then(bands => {
       res.json(bands.map(band => band.serialize()));
     })

@@ -120,9 +120,15 @@ router.post('/', jsonParser, (req, res) => {
 
 
 router.get('/', (req, res) => {
-  return User.find()
+  User.find({ name: req.body.name })
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
+   /* if () {
+      User.find({ location: req.body.location })
+    
+    .then(users => res.json(users.map(user => user.serialize())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+  }*/
 });
 
 
