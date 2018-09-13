@@ -24,7 +24,8 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
     Bands
       .create({
         bandName: req.body.bandName,
-        memberOne: user.name
+        memberOne: user.name,
+        userId: user.id
       })
     .then(bands => res.status(201).json(bands.serialize()))
     .catch(err => {
@@ -38,7 +39,8 @@ router.post('/', jwtAuth, jsonParser, (req, res) => {
 
 router.get('/', jwtAuth, jsonParser, (req, res) => {
   Bands
-    .find()
+    .find({ userId: req.user.id })
+    //.find()
     .then(bands => {
       res.json(bands.map(band => band.serialize()));
     })
@@ -47,6 +49,8 @@ router.get('/', jwtAuth, jsonParser, (req, res) => {
       res.status(500).json({ error: 'something went terribly wrong' });
     });
 });
+
+
 
 
  
