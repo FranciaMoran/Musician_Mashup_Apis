@@ -119,8 +119,8 @@ router.post('/', jsonParser, (req, res) => {
 });
 
 
-router.get('/', (req, res) => {
-  User.find({ name: req.body.name })
+router.get('/',  (req, res) => {
+  User.find({name: req.query.nameSearch})
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
    /* if () {
@@ -129,6 +129,7 @@ router.get('/', (req, res) => {
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
   }*/
+  console.log(res);
 });
 
 
