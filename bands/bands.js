@@ -7,7 +7,7 @@ const BandSchema = mongoose.Schema({
   members: [
   { type: String }
   ],
-  userId: { type: String }
+  userId: { type: String },
 });
 
 BandSchema.methods.serialize = function() {

@@ -120,22 +120,16 @@ router.post('/', jsonParser, (req, res) => {
 
 
 router.get('/',  (req, res) => {
-  User.find({name: req.query.nameSearch})
+  User.find({location: req.query.location})
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
-   /* if () {
-      User.find({ location: req.body.location })
-    
-    .then(users => res.json(users.map(user => user.serialize())))
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-  }*/
   console.log(res);
 });
 
 
 router.put('/:id', jsonParser, (req, res) => {
   const updated = {};
-  const updateableFields =  ['name', 'location', 'instrument', 'genre', 'cell', 'email'];;
+  const updateableFields =  ['location', 'instrument', 'genre', 'cell', 'email'];;
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];

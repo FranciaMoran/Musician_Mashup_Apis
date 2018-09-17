@@ -6,8 +6,8 @@ mongoose.Promise = global.Promise;
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
-    required: true
-    //unique: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,
@@ -15,7 +15,6 @@ const UserSchema = mongoose.Schema({
   },
   firstName: {type: String, default: ''},
   lastName: {type: String, default: ''},
-  name: { type: String },
   location: { type: String },
   instrument: { type: String },
   genre: { type: String },
@@ -28,7 +27,6 @@ UserSchema.methods.serialize = function() {
     username: this.username || '',
     firstName: this.firstName || '',
     lastName: this.lastName || '',
-    name: this.name || '',
     location: this.location || '',
     instrument: this.instrument || '',
     genre: this.genre || '',
