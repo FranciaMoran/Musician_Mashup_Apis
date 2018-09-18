@@ -16,7 +16,7 @@ BandSchema.methods.serialize = function() {
     memberOne: this.memberOne || '',
     members: this.members || '',
     userId: this.userId || '', 
-    _id: this.id || ''
+    _id: this._id || ''
   };
 };
 
