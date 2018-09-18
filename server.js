@@ -1,4 +1,5 @@
 'use strict';
+console.log("server file is executed");
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
