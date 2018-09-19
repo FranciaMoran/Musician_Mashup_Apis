@@ -12,20 +12,20 @@ const { router: usersRouter } = require('./users/router');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { router: bandsRouter } = require('./bands/router');
 
-mongoose.Promise = global.Promise;
-
 const { PORT, DATABASE_URL } = require('./config');
 
 
 app.use(morgan('common'));
 const cors = require('cors');
 const {CLIENT_ORIGIN} = require('./config');
+mongoose.Promise = global.Promise;
 
 app.use(
     cors({
         origin: CLIENT_ORIGIN
     })
 );
+
 
  
 
