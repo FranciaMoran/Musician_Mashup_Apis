@@ -1,3 +1,11 @@
+'use strict';
+
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const faker = require('faker');
+const mongoose = require('mongoose');
+const should = chai.should();
+const express = require('express');
 const router = express.Router();
 const {Bands} = require('../users/models');
 const { app, runServer, closeServer } = require('../server')
