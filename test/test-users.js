@@ -15,63 +15,6 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 
-////////////////////////////////////////////////
-/*
-function tearDownDb() {
-  return new Promise((resolve, reject) => {
-    console.warn('Deleting database');
-    mongoose.connection.dropDatabase()
-      .then(result => resolve(result))
-      .catch(err => reject(err));
-  });
-}
-
-
-///////////////////////////////////////////
-
-function seedBlogPostData() {
-  console.info('seeding food data');
-  const seedData = [];
-  for (let i = 1; i <= 10; i++) {
-    seedData.push({
-      username: faker.commerce.color(), 
-      password: faker.internet.password(),
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
-      name: faker.name.firstName(),
-      location: faker.address.city(),
-      instrument: faker.name.jobTitle(),
-      genre: faker.name.title(),
-      cell: faker.random.number(),
-      email: faker.internet.email()
-    });
-  }
-  return User.insertMany(seedData);
-}
-
-//////////////////////////////////////////////
-
-
-describe('user API resource', function () {
-
-  before(function () {
-    return runServer(TEST_DATABASE_URL);
-  });
-
-  beforeEach(function () {
-    return seedBlogPostData();
-  });
-
-  afterEach(function () {
-    return tearDownDb();
-  });
-
-  after(function () {
-    return closeServer();
-  });
-
-
-*/
 
 function tearDownDb() {
   return new Promise((resolve, reject) => {
@@ -110,12 +53,10 @@ afterEach(function () {
       cell: faker.random.number(),
       email: faker.internet.email()
       };
-       console.log(newUser);
       return chai.request(app)
         .post('/api/users')
         .send(newUser)
         .then(function (res) { 
-          console.log("1");
           res.should.have.status(201);
           res.should.be.json;
           res.body.should.be.a('object');
@@ -134,7 +75,6 @@ afterEach(function () {
         })
         .then(function (post) {
           post.username.should.equal(newUser.username);
-          //post.password.should.equal(newUser.password);
           post.firstName.should.equal(newUser.firstName);
           post.lastName.should.equal(newUser.lastName);
           post.location.should.equal(newUser.location);
