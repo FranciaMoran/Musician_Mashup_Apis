@@ -5,4 +5,4 @@ exports.PORT = process.env.PORT || 8080;
 exports.JWT_SECRET = process.env.JWT_SECRET;
 console.log("config file has been executed");
 exports.JWT_EXPIRY = process.env.JWT_EXPIRY || '7d';
-exports.CLIENT_ORIGIN = 'http://localhost:3000';
+exports.CLIENT_ORIGIN = 'https://shielded-shelf-30127.herokuapp.com/';
